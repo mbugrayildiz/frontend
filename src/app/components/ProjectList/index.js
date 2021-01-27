@@ -2,12 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { SearchBox, ProjectCard } from "../../components";
 import axios from "axios";
+import store from "../../redux/store";
+import { useDispatch, useSelector } from 'react-redux';
 
 const ProjectList = () => {
-  const [repositories, setRepositories] = useState([]);
+  const { projects } = useSelactor(store => store.global)
 
   useEffect(() => {
-    dataFetch();
   }, []);
 
   const dataFetch = async () => {
@@ -20,7 +21,7 @@ const ProjectList = () => {
       }
     }`;
 
-    // const res = await axios.get(`/graphql?query=${query}`)
+    // const res = await axios.get(`/graphql?query=${query}`);
     const res = await axios.get(`http://localhost:8080/graphql?query=${query}`);
     setRepositories(res.data.data.repositories);
   };
